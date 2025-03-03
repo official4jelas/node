@@ -1,23 +1,23 @@
-# Use the official Ubuntu image as a base
+# Gunakan image resmi Ubuntu sebagai base
 FROM ubuntu:latest
 
-# Set the maintainer label
+# Set label maintainer
 LABEL maintainer="official4jelas"
 
-# Disable interactive prompts during package installation
+# Nonaktifkan prompt interaktif selama instalasi paket
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install required packages
+# Instal paket yang diperlukan
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
     tmate
 
-# Set the working directory
+# Atur direktori kerja
 WORKDIR /workspace
 
-# Expose any necessary ports (e.g., for SSH)
+# Ekspos port yang diperlukan (opsional)
 EXPOSE 22
 
-# Start a tmate session when the container starts
+# Mulai sesi tmate saat kontainer dimulai
 CMD ["tmate", "-F"]
