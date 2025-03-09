@@ -1,23 +1,35 @@
-# Gunakan image resmi Ubuntu sebagai base
+# Use the official Ubuntu image as a base
 FROM ubuntu:latest
 
-# Set label maintainer
+# Set the maintainer label
 LABEL maintainer="official4jelas"
 
-# Nonaktifkan prompt interaktif selama instalasi paket
+# Disable interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Instal paket yang diperlukan
+# Install required packages and sudo
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
-    tmate
+    tmate \
+    sudo
 
-# Atur direktori kerja
+# Add a non-root user and add to sudoers
+RUN useradd -m myuser && \
+    echo 'myuser:password' | chpasswd && \
+    adduser myuser sudo
+
+# Allow sudo without password for the user
+RUN echo 'myuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Switch to non-root user
+USER myuser
+
+# Set the working directory
 WORKDIR /workspace
 
-# Ekspos port yang diperlukan (opsional)
+# Expose any necessary ports (e.g., for SSH)
 EXPOSE 22
 
-# Mulai sesi tmate saat kontainer dimulai
+# Start a tmate session when the container starts
 CMD ["tmate", "-F"]
