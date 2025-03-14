@@ -1,7 +1,23 @@
+# Gunakan image resmi Ubuntu sebagai base
 FROM ubuntu:latest
 
-# Update dan install tmate
-RUN apt-get update && apt-get install -y tmate
+# Set label maintainer
+LABEL maintainer="official4jelas"
 
-# Set the entrypoint or command
-ENTRYPOINT ["tmate"]
+# Nonaktifkan prompt interaktif selama instalasi paket
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Instal paket yang diperlukan
+RUN apt-get update && \
+    apt-get upgrade -y && \
+     \
+    tmate
+
+# Atur direktori kerja
+WORKDIR /workspace
+
+# Ekspos port yang diperlukan (opsional)
+EXPOSE 22
+
+# Mulai sesi tmate saat kontainer dimulai
+CMD ["tmate", "-F"]
