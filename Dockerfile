@@ -10,8 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Instal paket yang diperlukan
 RUN apt-get update && \
     apt-get upgrade -y && \
-     \
-    tmate
+    apt-get install -y tmate
 
 # Atur direktori kerja
 WORKDIR /workspace
