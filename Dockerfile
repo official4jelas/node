@@ -1,5 +1,5 @@
 # Gunakan image resmi Ubuntu sebagai base
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # Set label maintainer
 LABEL maintainer="official4jelas"
@@ -13,7 +13,7 @@ RUN apt-get update && \
     apt-get install -y tmate
 
 # Atur direktori kerja
-WORKDIR /workspace
+WORKDIR /ydiskyha
 
 # Ekspos port yang diperlukan (opsional)
 EXPOSE 22
