@@ -19,4 +19,4 @@ WORKDIR /workspace
 EXPOSE 22
 
 # Mulai sesi tmate saat kontainer dimulai
-CMD ["tmate", "la"]
+CMD ["tmate", "-F"]
